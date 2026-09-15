@@ -31,7 +31,7 @@ void process_line(
     const Pixel black_pixel = {
         0, 0, 0, static_cast<unsigned char>(opacity_min)
     };
-    const double luminance_scale = 1.0 / (3.0 * omega);
+    const double inverse_omega = 1.0 / omega;
     double luminance_sum = 0.0;
     int draw_pixels = 0;
     int remaining_drawing = drawing_count;
@@ -41,10 +41,10 @@ void process_line(
          i < length;
          ++i, index += step) {
         Pixel& pixel = pixels[index];
-         const int channel_sum = pixel.r + pixel.g + pixel.b;
+         const int luminance = (pixel.r + pixel.g + pixel.b) / 3;
          luminance_sum += invert
-             ? channel_sum * luminance_scale
-             : (768 - channel_sum) * luminance_scale;
+             ? luminance * inverse_omega
+             : (256 - luminance) * inverse_omega;
 
         if (luminance_sum >= phase) {
             luminance_sum = 0.0;

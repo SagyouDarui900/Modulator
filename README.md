@@ -80,9 +80,29 @@ Visual Studio Build Toolsなど、`cl.exe`を利用できる環境で実行し�
 
 ```text
 Copyright (c) 2022 Aodaruma
+
+### AviUtl ExEdit2 Plugin SDK
+
+`Modulator.cpp`は、AviUtl ExEdit2 Plugin SDKのヘッダーを使用してビルドしています。
+
+```text
+AviUtl ExEdit2 Plugin SDK
+Copyright (c) 2025 Kenkun
+Licensed under the MIT License.
+```
+
+SDKのライセンス全文は、SDKに付属する`license.txt`を参照してください。
+この配布物にはAviUtl ExEdit2 Plugin SDK本体のソースコードは含めていません。
 Licensed under the MIT License.
 ```
 
 詳細は`ModulatorCPU_LICENSE.txt`を参照してください。
 
 本移植版は元実装を参考に、生成AIを利用してAviUtl2向けに作成・調整したものです。
+
+## ライセンス
+
+元実装のライセンス条件に従い、本移植版にも著作権表示とMIT Licenseを適用します。
+ライセンス全文は[`ModulatorCPU_LICENSE.txt`](./ModulatorCPU_LICENSE.txt)を参照してください。
+
+Copyright (c) 2022 Aodaruma
