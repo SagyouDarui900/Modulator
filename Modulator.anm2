@@ -1,0 +1,33 @@
+--label:Modulator
+--track@scale_val:ｽｹｰﾙ,0.25,100.0,5.0,0.1
+--track@drawing_val:描画数,0,100,10,1
+--track@interval_val:間隔数,0,100,2,1
+--track@width_val:幅(px),0,100,2,1
+--check@invert_flag:反転,false
+--select@direction:方向=0,左から右=0,右から左=1,上から下=2,下から上=3
+--track@threshold_val:閾値,0,256,255,1
+--track@opaMax_val:透明度(白),0,256,256,1
+--track@opaMin_val:透明度(黒),0,256,256,1
+--trackgroup@scale_val,drawing_val,interval_val:描画設定
+--trackgroup@width_val,threshold_val:線設定
+
+local modulator = obj.module("Modulator")
+local data, width, height = obj.getpixeldata("object", "rgba")
+
+modulator.main(
+    data,
+    width,
+    height,
+    scale_val,
+    threshold_val,
+    drawing_val,
+    interval_val,
+    width_val,
+    direction,
+    invert_flag,
+    opaMax_val,
+    opaMin_val
+)
+
+obj.putpixeldata("object", data, width, height, "rgba")
+obj.setoption("antialias", 1)
