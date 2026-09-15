@@ -1,4 +1,4 @@
---label:Modulator
+--label:画面効果
 --track@scale_val:ｽｹｰﾙ,0.25,100.0,5.0,0.1
 --track@drawing_val:描画数,0,100,10,1
 --track@interval_val:間隔数,0,100,2,1
