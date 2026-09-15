@@ -96,13 +96,13 @@ SDKのライセンス全文は、SDKに付属する`license.txt`を参照して�
 Licensed under the MIT License.
 ```
 
-詳細は`ModulatorCPU_LICENSE.txt`を参照してください。
+詳細は`Modulator_LICENSE.txt`を参照してください。
 
 本移植版は元実装を参考に、生成AIを利用してAviUtl2向けに作成・調整したものです。
 
 ## ライセンス
 
 元実装のライセンス条件に従い、本移植版にも著作権表示とMIT Licenseを適用します。
-ライセンス全文は[`ModulatorCPU_LICENSE.txt`](./ModulatorCPU_LICENSE.txt)を参照してください。
+ライセンス全文は[`Modulator_LICENSE.txt`](./Modulator_LICENSE.txt)を参照してください。
 
 Copyright (c) 2022 Aodaruma
