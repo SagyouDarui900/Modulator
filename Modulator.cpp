@@ -4,6 +4,7 @@
 #include <windows.h>
 
 #include <algorithm>
+#include <cstddef>
 
 #include "filter2.h"
 #include "module2.h"
@@ -13,9 +14,9 @@ namespace {
 using Pixel = PIXEL_RGBA;
 
 void process_line(
-    Pixel* pixels,
+    Pixel* start_pixel,
     int length,
-    int step,
+    ptrdiff_t step,
     double omega,
     double phase,
     int drawing_count,
@@ -37,14 +38,13 @@ void process_line(
     int remaining_drawing = drawing_count;
     int remaining_interval = 0;
 
-    for (int i = 0, index = step > 0 ? 0 : length - 1;
-         i < length;
-         ++i, index += step) {
-        Pixel& pixel = pixels[index];
-         const int luminance = (pixel.r + pixel.g + pixel.b) / 3;
-         luminance_sum += invert
-             ? luminance * inverse_omega
-             : (256 - luminance) * inverse_omega;
+    Pixel* current = start_pixel;
+    for (int i = 0; i < length; ++i, current += step) {
+        Pixel& pixel = *current;
+        const int luminance = (pixel.r + pixel.g + pixel.b) / 3;
+        luminance_sum += invert
+            ? luminance * inverse_omega
+            : (256 - luminance) * inverse_omega;
 
         if (luminance_sum >= phase) {
             luminance_sum = 0.0;
@@ -93,9 +93,11 @@ void main(SCRIPT_MODULE_PARAM* param) {
     }
 
     const auto process_horizontal = [&](bool reverse) {
+        #pragma omp parallel for schedule(static)
         for (int y = 0; y < height; ++y) {
+            Pixel* line_start = pixels + static_cast<ptrdiff_t>(y) * width;
             process_line(
-                pixels + y * width,
+                reverse ? (line_start + width - 1) : line_start,
                 width,
                 reverse ? -1 : 1,
                 omega,
@@ -111,9 +113,11 @@ void main(SCRIPT_MODULE_PARAM* param) {
     };
 
     const auto process_vertical = [&](bool reverse) {
+        #pragma omp parallel for schedule(static)
         for (int x = 0; x < width; ++x) {
+            Pixel* col_start = pixels + x;
             process_line(
-                pixels + x,
+                reverse ? (col_start + static_cast<ptrdiff_t>(height - 1) * width) : col_start,
                 height,
                 reverse ? -width : width,
                 omega,

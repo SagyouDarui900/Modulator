@@ -1,5 +1,5 @@
 --label:画面効果
---track@scale_val:ｽｹｰﾙ,0.25,100.0,5.0,0.1
+--track@scale_val:スケール,0.25,100.0,5.0,0.1
 --track@drawing_val:描画数,0,100,10,1
 --track@interval_val:間隔数,0,100,2,1
 --track@width_val:幅(px),0,100,2,1
@@ -12,7 +12,15 @@
 --trackgroup@width_val,threshold_val:線設定
 
 local modulator = obj.module("Modulator")
+if not modulator then
+    error("Modulator.mod2 が見つかりませんでした。スクリプトフォルダを確認してください。")
+    return
+end
+
 local data, width, height = obj.getpixeldata("object", "rgba")
+if not data or width <= 0 or height <= 0 then
+    return
+end
 
 modulator.main(
     data,
@@ -30,4 +38,3 @@ modulator.main(
 )
 
 obj.putpixeldata("object", data, width, height, "rgba")
-obj.setoption("antialias", 1)
