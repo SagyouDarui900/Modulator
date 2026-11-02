@@ -22,7 +22,7 @@ jobs:
       - name: Download aviutl2_sdk
         shell: pwsh
         run: |
-          git clone --depth 1 https://github.com/aviutl2/aviutl2_sdk_mirror.git $env:TEMP/aviutl2_sdk_mirror
+          git clone --depth 1 https://github.com/aviutl2/aviutl2_sdk_mirror $env:TEMP/aviutl2_sdk_mirror
           $sdkPath = "$env:TEMP/aviutl2_sdk_mirror/include/aviutl2_sdk"
           echo "AVIUTL2_SDK=$sdkPath" >> $env:GITHUB_ENV
 
